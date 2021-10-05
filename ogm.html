@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Test Page</title>
+		<style>
+			#canv {
+				width: 336px;
+				height: 365px;
+				overflow:scroll;
+				overflow-x:hidden;
+				border:1px solid rgb(211,211,211);
+			}
+			#submit {
+				background-Color: rgb(255,255,255);
+				border:1px solid rgb(211,211,211);
+			}
+			#username {
+				border:1px solid rgb(211,211,211);
+			}
+			#txt {
+				border:1px solid rgb(211,211,211);
+			}
+		</style>
+	</head>
+	<body>
+		<label>Username: </label><input name="username" id="username" type="text" value="Username"/> <br>
+		<label>Chat Message: </label><input name="txt" id="txt" type="text" value="Chat Message"/> <br>
+		<button id="submit">Submit Message</button> 
+		<div id="canv"></div>
+		<span>Chat color: </span><span id="chat_color"></span>
+		<script>
+			var d = new Date();
+			var ws_uri = "ws://" + document.URL +":9600";
+			var websocket = new WebSocket(ws_uri);
+			websocket.onopen = function(event) {
+				var entry = document.createElement("span")
+				entry.style.color = "green"
+				canv.appendChild(entry)
+			};
+			
+			var randomColor = Math.floor(Math.random()*16777215).toString(16);
+			document.getElementById("chat_color").style.color = "#" + randomColor;
+			document.getElementById("chat_color").textContent = "#" + randomColor;
+			var username = document.getElementById("username");
+			var txt = document.getElementById("txt");
+			var btn = document.getElementById("submit");
+			btn.onclick = function() {
+			var x1 = document.createElement("span");
+			var x2 = document.createElement("span");
+			var br = document.createElement("br");
+			x1.textContent = ("[" + username.value + " at ]: ");
+			x1.style.color = "#" + randomColor;
+			x2.textContent = (txt.value);
+			canv.appendChild(x1);
+			canv.appendChild(x2);
+			canv.appendChild(br);
+			};
+			
+			btn.onmouseover = function(){
+				btn.style.backgroundColor = "rgb(232,232,232)"
+			}
+			
+			btn.onmouseout = function(){
+				btn.style.backgroundColor = "rgb(255,255,255)"
+			}
+		</script>
+	</body>
+</html>
