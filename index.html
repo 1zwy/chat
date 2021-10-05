@@ -31,7 +31,7 @@
 		<span>Chat color: </span><span id="chat_color"></span>
 		<script>
 			var d = new Date();
-			var ws_uri = "ws://" + document.URL +":9600";
+			var ws_uri = "ws://https://1zwy.github.io/chat/:9600";
 			var websocket = new WebSocket(ws_uri);
 			websocket.onopen = function(event) {
 				var entry = document.createElement("span")
