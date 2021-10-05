@@ -1,7 +1,7 @@
 // Validator
 console.log("The code should be working correctly.")
 
-// shit
+// poop
 var randomColor = Math.floor(Math.random()*16777215).toString(16);
 var d = window.open("about:blank", "_blank")
 var txtxtxtx = document.createElement("span")
