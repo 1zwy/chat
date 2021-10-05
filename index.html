@@ -30,14 +30,30 @@
 		<div id="canv"></div>
 		<span>Chat color: </span><span id="chat_color"></span>
 		<script>
+			MessageAdd = function(text, color){
+				var msg = document.createElement("span")
+				msg.textContent = text
+				msg.style.color = color
+			}
 			var d = new Date();
-			var ws_uri = "ws://https://1zwy.github.io/chat/:9600";
+			var ws_uri = "ws://1zwy.github.io/chat/";
 			var websocket = new WebSocket(ws_uri);
+			// on websocket open:
 			websocket.onopen = function(event) {
-				var entry = document.createElement("span")
-				entry.style.color = "green"
-				canv.appendChild(entry)
+				MessageAdd('You have entered the chat room.', 'green');
 			};
+
+			// on websocket close:
+			websocket.onclose = function(event) {
+				MessageAdd('You have been disconnected.', 'blue');
+			};
+
+			// on websocket error:
+			websocket.onerror = function(event) {
+				MessageAdd('Connection to chat failed.', 'red');
+			};
+			
+			
 			
 			var randomColor = Math.floor(Math.random()*16777215).toString(16);
 			document.getElementById("chat_color").style.color = "#" + randomColor;
